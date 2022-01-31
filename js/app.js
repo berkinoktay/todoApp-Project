@@ -92,7 +92,7 @@ categoryNameSection.querySelector('.btn').addEventListener('click', (e) => {
             Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Görev Başarılı Bir Şekilde Oluşturuldu',
+                title: 'Görev Başarıyla Oluşturuldu!',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -123,7 +123,7 @@ categoryAdd.querySelector('.btn').addEventListener('click', (e) => {
         Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Kategori Başarılı Bir Şekilde Oluşturuldu',
+            title: 'Kategori Başarıyla Oluşturuldu!',
             showConfirmButton: false,
             timer: 1500
         });
@@ -140,7 +140,11 @@ todoFilter.querySelector('.btn').addEventListener('click', (e) => {
     const todoSort = todoFilter.querySelector('#todo-sort').value;
     const todoImportanceStatus = todoFilter.querySelector('#todo-importance-status').value;
     if (todoSort === '' || todoImportanceStatus === '') {
-        alert('Lütfen tarih bilgisini ve öncelik bilgisini boş bırakmayınız!');
+        Swal.fire({
+            icon: 'error',
+            title: 'Hata...',
+            text: 'Lütfen tarih bilgisini ve önemlilik bilgisini boş bırakmayınız!',
+        });
     } else {
         loadTodos(todoStatus, todoSort, todoImportanceStatus);
 
@@ -152,18 +156,38 @@ sidebar.querySelector('.category-list').addEventListener('click', (e) => {
         setSelectedCategory(e.target.dataset.categoryId);
         loadItems();
     } else if (e.target.tagName === 'I') {
-        categories = getCategoriesFromLS();
-        todos = getTodosFromLS();
-        doneTodos = getDoneTodosFromLS();
-        const deleteCategoryId = e.target.dataset.categoryId;
-        const deletedCategoryTodos = todos.filter(todo => todo.categoryId !== deleteCategoryId);
-        const deleteCategory = categories.filter(category => category._id !== deleteCategoryId);
-        const deleteCategoryDoneTodos = doneTodos.filter(todos => todos.categoryId !== deleteCategoryId);
-        localStorage.setItem('todos', JSON.stringify(deletedCategoryTodos));
-        localStorage.setItem('categories', JSON.stringify(deleteCategory));
-        localStorage.setItem('doneTodos', JSON.stringify(deleteCategoryDoneTodos));
-        localStorage.setItem('selectedCategory', JSON.stringify('all'));
-        loadItems();
+        Swal.fire({
+            title: 'Kategoriyi ve görevlerini silmek istediğine emin misin?',
+            text: "Dikkat! Bu işlemi geri alamazsınız!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'Hayır'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                categories = getCategoriesFromLS();
+                todos = getTodosFromLS();
+                doneTodos = getDoneTodosFromLS();
+                const deleteCategoryId = e.target.dataset.categoryId;
+                const deletedCategoryTodos = todos.filter(todo => todo.categoryId !== deleteCategoryId);
+                const deleteCategory = categories.filter(category => category._id !== deleteCategoryId);
+                const deleteCategoryDoneTodos = doneTodos.filter(todos => todos.categoryId !== deleteCategoryId);
+                localStorage.setItem('todos', JSON.stringify(deletedCategoryTodos));
+                localStorage.setItem('categories', JSON.stringify(deleteCategory));
+                localStorage.setItem('doneTodos', JSON.stringify(deleteCategoryDoneTodos));
+                localStorage.setItem('selectedCategory', JSON.stringify('all'));
+                loadItems();
+                Swal.fire(
+                    'Silindi!',
+                    'Kategori başarıyla silinmiştir.',
+                    'success',
+                );
+
+            }
+        })
+
     }
 
 });
@@ -197,7 +221,7 @@ todosContainer.querySelector('.todos').addEventListener('click', (e) => {
             return `<option value="${category._id}" ${category.categoryName === editTodoContainer.querySelector('.todo-category').textContent ? 'selected' : ''}>${category.categoryName}</option>`
         })}    
                     </select>
-                    <h3>Öncelik Durumu</h3>
+                    <h3>Önemlilik Durumu</h3>
                     <select class="input-text" id="importance" required>
                         <option value="" disabled>Lütfen bir değer seçiniz..</option>
                         <option value="Yüksek" ${editTodoContainer.querySelector('.todo-importance').textContent === 'Yüksek' ? 'selected' : ''}>Yüksek</option>
@@ -220,12 +244,32 @@ todosContainer.querySelector('.todos').addEventListener('click', (e) => {
                 editTodoPopup.remove();
             } else if (e.target.classList.contains('todo-delete')) {
                 e.preventDefault();
-                const deletedTodoIndex = todos.findIndex(todo => todo._id === e.target.dataset.todoId);
-                todos.splice(deletedTodoIndex, 1);
-                localStorage.setItem('todos', JSON.stringify(todos));
-                containerBG.style.display = "none";
-                editTodoPopup.remove();
-                loadTodos();
+                Swal.fire({
+                    title: 'Görevi silmek istediğine emin misin?',
+                    text: "Dikkat! Bu işlemi geri alamazsınız!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet, sil!',
+                    cancelButtonText: 'Hayır'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const deletedTodoIndex = todos.findIndex(todo => todo._id === e.target.dataset.todoId);
+                        todos.splice(deletedTodoIndex, 1);
+                        localStorage.setItem('todos', JSON.stringify(todos));
+                        containerBG.style.display = "none";
+                        editTodoPopup.remove();
+                        loadTodos();
+                        Swal.fire(
+                            'Silindi!',
+                            'Görev başarıyla silinmiştir.',
+                            'success',
+                        );
+
+                    }
+                })
+
             } else if (e.target.classList.contains('todo-edit')) {
                 e.preventDefault();
                 if (editTodoPopup.querySelector('#title').value === '' || editTodoPopup.querySelector('#desc').value === '' || editTodoPopup.querySelector('#category').value === '' || editTodoPopup.querySelector('#importance').value === '') {
@@ -248,7 +292,7 @@ todosContainer.querySelector('.todos').addEventListener('click', (e) => {
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
-                        title: 'Başarılı bir şekilde düzenlendi!',
+                        title: 'Görev Başarıyla Düzenlendi!',
                         showConfirmButton: false,
                         timer: 1200
                     });

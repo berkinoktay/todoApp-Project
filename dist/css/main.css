@@ -284,6 +284,8 @@ header {
         resize: none; }
       .main .todos-container .new-todo-container .todo-add, .main .todos-container .edit-todo-container .todo-add {
         justify-content: center; }
+        .main .todos-container .new-todo-container .todo-add i, .main .todos-container .edit-todo-container .todo-add i {
+          pointer-events: none; }
       .main .todos-container .new-todo-container .todo-popup-btns, .main .todos-container .edit-todo-container .todo-popup-btns {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -294,6 +296,8 @@ header {
           justify-content: center; }
           .main .todos-container .new-todo-container .todo-popup-btns a.todo-delete, .main .todos-container .edit-todo-container .todo-popup-btns a.todo-delete {
             background-color: rgba(29, 53, 87, 0.4); }
+            .main .todos-container .new-todo-container .todo-popup-btns a.todo-delete i, .main .todos-container .edit-todo-container .todo-popup-btns a.todo-delete i {
+              pointer-events: none; }
             .main .todos-container .new-todo-container .todo-popup-btns a.todo-delete:hover, .main .todos-container .edit-todo-container .todo-popup-btns a.todo-delete:hover {
               background-color: rgba(29, 53, 87, 0.6); }
     .main .todos-container .todos {

@@ -328,7 +328,6 @@ header{
             padding: 30px;
             z-index: 999;
             border-radius: 10px;
-          
             .close{
                 position: absolute;
                 top: 10px;
@@ -362,6 +361,9 @@ header{
             }
             .todo-add{
                 justify-content: center;
+                i{
+                    pointer-events: none;
+                }
             }
             .todo-popup-btns{
                 display: grid;
@@ -373,7 +375,9 @@ header{
                    justify-content: center;
                    &.todo-delete{
                        background-color: rgba($primary-color, .4);
-                      
+                        i{
+                            pointer-events: none;
+                        }
                        &:hover{
                         background-color: rgba($primary-color, .6);
                        }
