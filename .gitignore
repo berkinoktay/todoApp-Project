@@ -1,6 +1,10 @@
 # Compiled class file
 *.class
-
+# dependencies
+/node_modules
+node_modules
+/.pnp
+.pnp.js
 # Log file
 *.log
 

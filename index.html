@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-App | Yapılacaklar Listesi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="dist/css/main.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <header>
+        <div class="logo"><i class="fas fa-bullseye"></i><span>Todo App</span></div>
+        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+    </header>
+    <section class="main">
+        <div class="sidebar">
+            <div class="close"><i class="far fa-times-circle"></i></div>
+            <h2>Kategori Yönetimi</h2>
+            <div class="category-add">
+                <input type="text" class="input-text" placeholder="Yeni kategori ismini yazınız...">
+                <a href="#" class="btn"><i class="fas fa-plus"></i> Kategoriyi Ekle</a>
+            </div>
+            <hr>
+            <div class="category-list">
+                
+            </div>
+        </div>
+        <div class="todos-container">
+            <div class="category-name">
+                <h1></h1>
+                <a href="#" class="btn"><i class="fas fa-plus"></i> Yeni Görev</a>         
+            </div>
+            <div class="todo-filter">
+                <span>Filtrele</span>
+                <div class="filters-container"> 
+               
+                <select name="todo-status" id="todo-status"">
+                    <option value="all" selected>Hepsi</option>
+                    <option value="done">Tamamlanmış</option>
+                    <option value="notDone">Tamamlanmamış</option>
+                </select>
+                <select name="todo-sort" id="todo-sort" required>
+                    <option value="" selected disabled>Tarihe Göre Filtrele</option>
+                    <option value="desc">Tarihe göre azalan</option>
+                    <option value="asc">Tarihe göre artan</option>
+                </select>
+              
+                <select id="todo-importance-status" name="todo-importance-status" required>
+                    <option value="" selected disabled>Öncelik</option>
+                    <option value="all">Hepsi</option>
+                    <option value="Yüksek">Yüksek</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Düşük">Düşük</option>
+                </select>
+                <a href="#" class="btn">Filtreleri Uygula</a>
+            </div>
+               
+            </div>
+                
+                <ul class="todos"></ul>
+            
+        </div>
+    </section>
+        <div class="container-background"></div>
+       
+    <script src="js/app.js"></script>
+</body>
+</html>
