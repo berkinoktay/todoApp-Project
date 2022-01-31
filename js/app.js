@@ -380,6 +380,7 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                         <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                 </li>`;
                 }).join('');
+                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
             }
 
         } else if (todoStatus === 'done') {
@@ -402,6 +403,7 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                         <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                 </li>`;
                 }).join('');
+                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask === true).length})</span>`;
             } else {
                 todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask === true).filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
                     const date = new Date(Number(todo.todoDate));
@@ -421,6 +423,8 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                         <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                 </li>`;
                 }).join('');
+                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask === true).filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+
             }
 
         } else if (todoStatus === 'notDone') {
@@ -443,6 +447,8 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                         <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                 </li>`;
                 }).join('');
+                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask !== true).length})</span>`;
+
             } else {
                 todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask !== true).filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
                     const date = new Date(Number(todo.todoDate));
@@ -462,6 +468,8 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                         <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                 </li>`;
                 }).join('');
+                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask !== true).filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+
             }
 
         }
@@ -500,6 +508,8 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                             <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                     </li>`;
                     }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `${activeCategoryText} <span>(${sortArray.filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+
                 }
             } else if (todoStatus === 'done') {
                 if (todoImportanceStatus === 'all') {
@@ -521,6 +531,8 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                             <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                     </li>`;
                     }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `${activeCategoryText} <span>(${sortArray.filter(todo => todo.doneTask === true).length})</span>`;
+
                 } else {
                     todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask === true).filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
                         const date = new Date(Number(todo.todoDate));
@@ -540,6 +552,8 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                             <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                     </li>`;
                     }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `${activeCategoryText} <span>(${sortArray.filter(todo => todo.doneTask === true).filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+
                 }
 
             } else if (todoStatus === 'notDone') {
@@ -562,6 +576,8 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                             <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                     </li>`;
                     }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `${activeCategoryText} <span>(${sortArray.filter(todo => todo.doneTask !== true).length})</span>`;
+
                 } else {
                     todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask !== true).filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
                         const date = new Date(Number(todo.todoDate));
@@ -581,6 +597,8 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
                             <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
                     </li>`;
                     }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `${activeCategoryText} <span>(${sortArray.filter(todo => todo.doneTask !== true).filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+
                 }
 
             }
