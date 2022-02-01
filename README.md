@@ -16,9 +16,11 @@ Görevlerinizi detaylı olarak oluşturma imkanı!
 
 ![](/dist/img/gorev-ekleme.jpg)
 ## Görev Yönetimi
-1- Kategoriler arasında gezinti yapabilirsiniz.
-2- Görevlerinizi önemlilik derecesine göre ekleyebilir ve bunları arayüz üzerinden görebilirsiniz.
-3- Her yeni bir görev eklediğiniz tarihe göre kayıt edilmektedir.
+<ol>
+  <li>Kategoriler arasında gezinti yapabilirsiniz.</li>  
+  <li> Görevlerinizi önemlilik derecesine göre ekleyebilir ve bunları arayüz üzerinden görebilirsiniz.</li>  
+  <li>Her yeni bir görev eklediğiniz tarihe göre kayıt edilmektedir.</li>  
+</ol>
 
 ![](/dist/img/gorev-yonetimi.jpg)
 ## Görevleri Düzenleyebilme
@@ -34,9 +36,11 @@ Görevlerinizin üzerindeki **"tamamla"** butonuna tıklayarak diğerlerinden fa
 ## Görev Filtreleme
 Görevlerinizi **"filtrele"** alanında bulunan seçim araçlarından istediğiniz özelliklere göre filtreleyerek görev listenizi daha detaylı görebilirsiniz.
 
-1- Tamamlanma Durumuna Göre Filtreleme
-2- Tarihe Göre Filtreleme
-3- Önemlilik Durumuna Göre Filtreleme
+<ol>
+  <li>Tamamlanma Durumuna Göre Filtreleme</li>  
+  <li>Tarihe Göre Filtreleme</li>  
+  <li>Önemlilik Durumuna Göre Filtreleme</li>  
+</ol>
 ![](/dist/img/gorev-filtreleme.jpg)
 
 ## Bildirimler
