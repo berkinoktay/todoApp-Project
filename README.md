@@ -41,6 +41,7 @@ Görevlerinizi **"filtrele"** alanında bulunan seçim araçlarından istediğin
   <li>Tarihe Göre Filtreleme</li>  
   <li>Önemlilik Durumuna Göre Filtreleme</li>  
 </ol>
+
 ![](/dist/img/gorev-filtreleme.jpg)
 
 ## Bildirimler
