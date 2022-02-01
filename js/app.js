@@ -49,7 +49,7 @@ categoryNameSection.querySelector('.btn').addEventListener('click', (e) => {
         return `<option value="${category._id}" >${category.categoryName}</option>`
     })}    
                     </select>
-                    <h3>Öncelik Durumu</h3>
+                    <h3>Önemlilik Derecesi</h3>
                     <select class="input-text" id="importance" required>
                         <option value="" selected disabled>Lütfen bir değer seçiniz..</option>
                         <option value="Yüksek">Yüksek</option>
@@ -211,9 +211,9 @@ todosContainer.querySelector('.todos').addEventListener('click', (e) => {
                     <div class="close"><i class="far fa-times-circle"></i></div>
                     <h2>Görevi Düzenle</h2>
                     <h3>Başlık</h3>
-                    <input type="text" class="input-text" id="title" value="${editTodoContainer.querySelector('.todo-name').textContent}">
+                    <input type="text" class="input-text" id="title" value="${editTodoContainer.querySelector('.todo-name h2').textContent}">
                     <h3>Açıklama</h3>
-                    <textarea id="desc" class="input-text">${editTodoContainer.querySelector('.todo-name h2').textContent}</textarea>
+                    <textarea id="desc" class="input-text">${editTodoContainer.querySelector('.desc').textContent}</textarea>
                     <h3>Kategori</h3>
                     <select class="input-text" id="category" required  value="${editTodoContainer.querySelector('.todo-category').textContent}">
                         <option value="" disabled>Lütfen bir kategori seçiniz..</option>
