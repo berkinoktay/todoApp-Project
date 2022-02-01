@@ -358,120 +358,124 @@ function loadTodos(todoStatus = 'all', todoSort = 'desc', todoImportanceStatus =
 
     if (selectedCategory === "all") {
         categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${todos.length})</span>`;
-        if (todoStatus === 'all') {
-            if (todoImportanceStatus === 'all') {
-                getTodosSnippet(sortArray)
-            } else {
-                todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
-                    const date = new Date(Number(todo.todoDate));
-                    if (todo.todoImportance == 'Yüksek') {
-                        importanceColor = 'background-color:#800000';
-                    } else if (todo.todoImportance == 'Normal') {
-                        importanceColor = 'background-color:#df7100';
-                    } else {
-                        importanceColor = 'background-color:#007400';
-                    }
-                    const categoryColor = categories.find(category => category._id === todo.categoryId)
-                    return `
-                    <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
-                        <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
-                        <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
-                        <p class="desc">${todo.todoDesc}</p>
-                        <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
-                </li>`;
-                }).join('');
-                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+        if (todos.length === 0) {
+            todosContainer.querySelector('.todos').innerHTML = `<h3>Görev Bulunamadı! <br> Lütfen yeni bir görev ekleyiniz..</h3>`
+        } else {
+            if (todoStatus === 'all') {
+                if (todoImportanceStatus === 'all') {
+                    getTodosSnippet(sortArray)
+                } else {
+                    todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
+                        const date = new Date(Number(todo.todoDate));
+                        if (todo.todoImportance == 'Yüksek') {
+                            importanceColor = 'background-color:#800000';
+                        } else if (todo.todoImportance == 'Normal') {
+                            importanceColor = 'background-color:#df7100';
+                        } else {
+                            importanceColor = 'background-color:#007400';
+                        }
+                        const categoryColor = categories.find(category => category._id === todo.categoryId)
+                        return `
+                        <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
+                            <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
+                            <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
+                            <p class="desc">${todo.todoDesc}</p>
+                            <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
+                    </li>`;
+                    }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+                }
+
+            } else if (todoStatus === 'done') {
+                if (todoImportanceStatus === 'all') {
+                    todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask === true).map(todo => {
+                        const date = new Date(Number(todo.todoDate));
+                        if (todo.todoImportance == 'Yüksek') {
+                            importanceColor = 'background-color:#800000';
+                        } else if (todo.todoImportance == 'Normal') {
+                            importanceColor = 'background-color:#df7100';
+                        } else {
+                            importanceColor = 'background-color:#007400';
+                        }
+                        const categoryColor = categories.find(category => category._id === todo.categoryId)
+                        return `
+                        <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
+                            <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
+                            <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
+                            <p class="desc">${todo.todoDesc}</p>
+                            <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
+                    </li>`;
+                    }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask === true).length})</span>`;
+                } else {
+                    todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask === true).filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
+                        const date = new Date(Number(todo.todoDate));
+                        if (todo.todoImportance == 'Yüksek') {
+                            importanceColor = 'background-color:#800000';
+                        } else if (todo.todoImportance == 'Normal') {
+                            importanceColor = 'background-color:#df7100';
+                        } else {
+                            importanceColor = 'background-color:#007400';
+                        }
+                        const categoryColor = categories.find(category => category._id === todo.categoryId)
+                        return `
+                        <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
+                            <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
+                            <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
+                            <p class="desc">${todo.todoDesc}</p>
+                            <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
+                    </li>`;
+                    }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask === true).filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+
+                }
+
+            } else if (todoStatus === 'notDone') {
+                if (todoImportanceStatus === 'all') {
+                    todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask !== true).map(todo => {
+                        const date = new Date(Number(todo.todoDate));
+                        if (todo.todoImportance == 'Yüksek') {
+                            importanceColor = 'background-color:#800000';
+                        } else if (todo.todoImportance == 'Normal') {
+                            importanceColor = 'background-color:#df7100';
+                        } else {
+                            importanceColor = 'background-color:#007400';
+                        }
+                        const categoryColor = categories.find(category => category._id === todo.categoryId)
+                        return `
+                        <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
+                            <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
+                            <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
+                            <p class="desc">${todo.todoDesc}</p>
+                            <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
+                    </li>`;
+                    }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask !== true).length})</span>`;
+
+                } else {
+                    todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask !== true).filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
+                        const date = new Date(Number(todo.todoDate));
+                        if (todo.todoImportance == 'Yüksek') {
+                            importanceColor = 'background-color:#800000';
+                        } else if (todo.todoImportance == 'Normal') {
+                            importanceColor = 'background-color:#df7100';
+                        } else {
+                            importanceColor = 'background-color:#007400';
+                        }
+                        const categoryColor = categories.find(category => category._id === todo.categoryId)
+                        return `
+                        <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
+                            <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
+                            <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
+                            <p class="desc">${todo.todoDesc}</p>
+                            <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
+                    </li>`;
+                    }).join('');
+                    categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask !== true).filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
+
+                }
+
             }
-
-        } else if (todoStatus === 'done') {
-            if (todoImportanceStatus === 'all') {
-                todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask === true).map(todo => {
-                    const date = new Date(Number(todo.todoDate));
-                    if (todo.todoImportance == 'Yüksek') {
-                        importanceColor = 'background-color:#800000';
-                    } else if (todo.todoImportance == 'Normal') {
-                        importanceColor = 'background-color:#df7100';
-                    } else {
-                        importanceColor = 'background-color:#007400';
-                    }
-                    const categoryColor = categories.find(category => category._id === todo.categoryId)
-                    return `
-                    <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
-                        <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
-                        <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
-                        <p class="desc">${todo.todoDesc}</p>
-                        <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
-                </li>`;
-                }).join('');
-                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask === true).length})</span>`;
-            } else {
-                todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask === true).filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
-                    const date = new Date(Number(todo.todoDate));
-                    if (todo.todoImportance == 'Yüksek') {
-                        importanceColor = 'background-color:#800000';
-                    } else if (todo.todoImportance == 'Normal') {
-                        importanceColor = 'background-color:#df7100';
-                    } else {
-                        importanceColor = 'background-color:#007400';
-                    }
-                    const categoryColor = categories.find(category => category._id === todo.categoryId)
-                    return `
-                    <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
-                        <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
-                        <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
-                        <p class="desc">${todo.todoDesc}</p>
-                        <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
-                </li>`;
-                }).join('');
-                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask === true).filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
-
-            }
-
-        } else if (todoStatus === 'notDone') {
-            if (todoImportanceStatus === 'all') {
-                todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask !== true).map(todo => {
-                    const date = new Date(Number(todo.todoDate));
-                    if (todo.todoImportance == 'Yüksek') {
-                        importanceColor = 'background-color:#800000';
-                    } else if (todo.todoImportance == 'Normal') {
-                        importanceColor = 'background-color:#df7100';
-                    } else {
-                        importanceColor = 'background-color:#007400';
-                    }
-                    const categoryColor = categories.find(category => category._id === todo.categoryId)
-                    return `
-                    <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
-                        <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
-                        <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
-                        <p class="desc">${todo.todoDesc}</p>
-                        <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
-                </li>`;
-                }).join('');
-                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask !== true).length})</span>`;
-
-            } else {
-                todosContainer.querySelector('.todos').innerHTML = sortArray.filter(todo => todo.doneTask !== true).filter(todo => todo.todoImportance === todoImportanceStatus).map(todo => {
-                    const date = new Date(Number(todo.todoDate));
-                    if (todo.todoImportance == 'Yüksek') {
-                        importanceColor = 'background-color:#800000';
-                    } else if (todo.todoImportance == 'Normal') {
-                        importanceColor = 'background-color:#df7100';
-                    } else {
-                        importanceColor = 'background-color:#007400';
-                    }
-                    const categoryColor = categories.find(category => category._id === todo.categoryId)
-                    return `
-                    <li style="border-color:${categoryColor.hexColor}" class="${todo.doneTask === true ? 'done' : ''}">
-                        <div class="todo-info"><div class="todo-category" style="background-color:${categoryColor.hexColor}35; color:${categoryColor.hexColor}">${todo.categoryName}</div> <div class="todo-importance" style="${importanceColor}">${todo.todoImportance}</div><div class="icons"><i class="fas fa-edit" data-todo-id="${todo._id}"></i><i class="fas fa-undo" data-todo-id="${todo._id}"></i></div></div>
-                        <div class="todo-name"><h2>${todo.todoTitle}</h2></div>
-                        <p class="desc">${todo.todoDesc}</p>
-                        <div class="todo-actions"><span><i class="fas fa-clock"></i> ${date.getDate()}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()} </span> <a href="#" class="btn" data-todo-id="${todo._id}"><i class="fas fa-check"></i> <p>Tamamla</p></a></div>
-                </li>`;
-                }).join('');
-                categoryNameSection.querySelector('h1').innerHTML = `Tüm Görevler <span>(${sortArray.filter(todo => todo.doneTask !== true).filter(todo => todo.todoImportance === todoImportanceStatus).length})</span>`;
-
-            }
-
         }
 
     } else {
